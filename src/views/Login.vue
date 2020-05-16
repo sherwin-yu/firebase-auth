@@ -1,22 +1,4 @@
 <template>
-  <!-- <div class="login-wrapper">
-    <h1>Sign In</h1>
-    <form>
-      <label>Email</label>
-      <input type="email" name="email" required />
-
-      <label>Password</label>
-      <input type="password" name="password" required />
-      <button type="submit">Log In</button>
-      <div>
-        <a href="#">Forgot password?</a>
-      </div>
-      <div>
-        New?
-        <a href="#">Sign up now</a>
-      </div>
-    </form>
-  </div> -->
   <div class="container-wrapper">
     <div class="container" id="container">
       <div class="form-container sign-up-container">
@@ -40,10 +22,8 @@
       <div class="overlay-container">
         <div class="overlay">
           <div class="overlay-panel overlay-left">
-            <h1>Welcome Back!</h1>
-            <p>
-              To keep connected with us please login with your personal info
-            </p>
+            <h1>Already have an account?</h1>
+            <p>Please sign in</p>
             <button class="ghost" id="signIn">Sign In</button>
           </div>
           <div class="overlay-panel overlay-right">
