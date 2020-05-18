@@ -25,7 +25,7 @@
         <div class="overlay">
           <div class="overlay-panel overlay-left">
             <h1>Already have an account?</h1>
-            <p>Please sign in</p>
+            <p>Sign in instead</p>
             <button class="ghost" @click="toggleOverlay()">Sign In</button>
           </div>
           <div class="overlay-panel overlay-right">
