@@ -4,20 +4,22 @@
       <div class="form-container sign-up-container">
         <form @submit="signUp">
           <h1>Sign up</h1>
-          <input type="text" placeholder="Name" v-model="form.name" required />
-          <input type="email" placeholder="Email" v-model="form.email" required />
-          <input type="password" placeholder="Password" v-model="form.password" required />
+          <input type="text" placeholder="Name" v-model="signUpForm.name" required />
+          <input type="email" placeholder="Email" v-model="signUpForm.email" required />
+          <input type="password" placeholder="Password" v-model="signUpForm.password" required />
           <button type="submit">Sign Up</button>
+          <div v-if="error">{{ error }}</div>
         </form>
       </div>
       <div class="form-container sign-in-container">
-        <form action="#">
+        <form @submit="signIn">
           <h1>Sign in</h1>
-          <input type="email" placeholder="Email" required />
-          <input type="password" placeholder="Password" required />
+          <input type="email" placeholder="Email" v-model="signInForm.email" required />
+          <input type="password" placeholder="Password" v-model="signInForm.password" required />
           <button type="submit">Sign In</button>
-          <a href="#">Forgot password?</a>
+          <div v-if="error">{{ error }}</div>
         </form>
+        <a href="#">Forgot password?</a>
       </div>
       <div class="overlay-container">
         <div class="overlay">
@@ -30,7 +32,6 @@
             <h1>Hello!</h1>
             <p>Enter your personal details and start your journey with us</p>
             <button class="ghost" @click="toggleOverlay()">Sign Up</button>
-            <div v-if="error">{{ error }}</div>
           </div>
         </div>
       </div>
@@ -45,8 +46,12 @@ export default {
   name: 'Login',
   data() {
     return {
-      form: {
+      signUpForm: {
         name: '',
+        email: '',
+        password: ''
+      },
+      signInForm: {
         email: '',
         password: ''
       },
@@ -59,7 +64,7 @@ export default {
       this.isActive = !this.isActive;
     },
     async signUp(e) {
-      const { name, email, password } = this.form;
+      const { name, email, password } = this.signUpForm;
       e.preventDefault();
       console.log('signingup');
       try {
@@ -67,6 +72,16 @@ export default {
         await response.user.updateProfile({ displayName: name });
       } catch (err) {
         console.log('err', err);
+        this.error = err.message;
+      }
+    },
+    async signIn(e) {
+      const { email, password } = this.signInForm;
+      e.preventDefault();
+      try {
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+        console.log('redirect here');
+      } catch (err) {
         this.error = err.message;
       }
     }
