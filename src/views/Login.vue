@@ -2,11 +2,11 @@
   <div class="container-wrapper">
     <div class="container" :class="{ 'right-panel-active': isActive }">
       <div class="form-container sign-up-container">
-        <form action="#">
+        <form @submit="signUp">
           <h1>Sign up</h1>
-          <input type="text" placeholder="Name" required />
-          <input type="email" placeholder="Email" required />
-          <input type="password" placeholder="Password" required />
+          <input type="text" placeholder="Name" v-model="form.name" required />
+          <input type="email" placeholder="Email" v-model="form.email" required />
+          <input type="password" placeholder="Password" v-model="form.password" required />
           <button type="submit">Sign Up</button>
         </form>
       </div>
@@ -30,6 +30,7 @@
             <h1>Hello!</h1>
             <p>Enter your personal details and start your journey with us</p>
             <button class="ghost" @click="toggleOverlay()">Sign Up</button>
+            <div v-if="error">{{ error }}</div>
           </div>
         </div>
       </div>
@@ -38,17 +39,36 @@
 </template>
 
 <script>
+import firebase from 'firebase';
+
 export default {
   name: 'Login',
-  // props: ['todos'],
   data() {
     return {
+      form: {
+        name: '',
+        email: '',
+        password: ''
+      },
+      error: null,
       isActive: false
     };
   },
   methods: {
     toggleOverlay() {
       this.isActive = !this.isActive;
+    },
+    async signUp(e) {
+      const { name, email, password } = this.form;
+      e.preventDefault();
+      console.log('signingup');
+      try {
+        const response = await firebase.auth().createUserWithEmailAndPassword(email, password);
+        await response.user.updateProfile({ displayName: name });
+      } catch (err) {
+        console.log('err', err);
+        this.error = err.message;
+      }
     }
   }
 };
