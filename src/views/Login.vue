@@ -122,6 +122,7 @@ a {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  height: 90vh;
 }
 
 .container {
