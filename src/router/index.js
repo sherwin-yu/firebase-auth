@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import firebase from 'firebase';
 import Home from '../views/Home.vue';
+import Dashboard from '../views/Dashboard.vue';
 import Login from '../views/Login.vue';
 import NotFound from '../views/NotFound.vue';
 
@@ -12,9 +13,16 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    meta: {
-      requiresAuth: true
-    }
+    children: [
+      {
+        path: '',
+        name: Dashboard,
+        component: Dashboard,
+        meta: {
+          requiresAuth: true
+        }
+      }
+    ]
   },
   {
     path: '/login',
