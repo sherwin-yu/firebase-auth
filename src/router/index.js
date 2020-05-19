@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-// import firebase from 'firebase';
+import firebase from 'firebase';
 import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import NotFound from '../views/NotFound.vue';
@@ -35,7 +35,8 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  if (requiresAuth) {
+  const currentUser = firebase.auth().currentUser;
+  if (requiresAuth && !currentUser) {
     next('/login');
   } else {
     next();

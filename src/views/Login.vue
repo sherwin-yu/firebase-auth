@@ -80,7 +80,7 @@ export default {
       e.preventDefault();
       try {
         await firebase.auth().signInWithEmailAndPassword(email, password);
-        console.log('redirect here');
+        this.$router.push('/');
       } catch (err) {
         this.error = err.message;
       }
