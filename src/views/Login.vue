@@ -18,8 +18,8 @@
           <input type="password" placeholder="Password" v-model="signInForm.password" required />
           <button type="submit">Sign In</button>
           <div v-if="error">{{ error }}</div>
+          <a href="#">Forgot password?</a>
         </form>
-        <a href="#">Forgot password?</a>
       </div>
       <div class="overlay-container">
         <div class="overlay">
