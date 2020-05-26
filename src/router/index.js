@@ -12,7 +12,7 @@ const routes = [
     path: '/',
     name: 'Dashboard',
     component: Dashboard,
-    auth: true
+    meta: { requiresAuth: true }
   },
   {
     path: '/login',
@@ -32,7 +32,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.auth);
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   const currentUser = firebase.auth().currentUser;
   if (requiresAuth && !currentUser) {
     next('/login');
