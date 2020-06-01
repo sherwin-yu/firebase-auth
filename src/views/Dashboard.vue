@@ -4,16 +4,22 @@
       <button @click="logout">Logout</button>
     </div>
     <div class="main">
-      <h1>Welcome!</h1>
+      <h1>Hello, {{ user.data.displayName }}!</h1>
     </div>
   </div>
 </template>
 
 <script>
 import firebase from 'firebase';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Dashboard',
+  computed: {
+    ...mapGetters({
+      user: 'user'
+    })
+  },
   methods: {
     async logout(e) {
       e.preventDefault();
